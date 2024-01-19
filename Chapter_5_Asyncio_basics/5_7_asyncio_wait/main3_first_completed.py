@@ -20,7 +20,7 @@ async def main():
         print("Задание ожидает выполнения: ", task)
     print('-' * 20)
 
-    # done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
     # for task in done:
     #     print("Задание завершено: ", task)
     # for task in pending:
