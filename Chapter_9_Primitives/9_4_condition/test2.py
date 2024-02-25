@@ -1,5 +1,5 @@
 import asyncio
-import time
+
 
 storage: int = 0
 
@@ -26,8 +26,9 @@ async def gather_wood(storage_condition, stop_production):
             await asyncio.sleep(1)
             storage += 2
             print(f"Добыто 2 ед. дерева. На складе {storage} ед.")
+            # storage_condition.notify_all()
             storage_condition.notify_all()
-            # storage_condition.notify()
+            await storage_condition.wait()
             # storage_condition.release()
 
 async def craft_item(storage_condition, stop_production, wood_item, qty):
@@ -44,9 +45,13 @@ async def craft_item(storage_condition, stop_production, wood_item, qty):
                 print(f'Изготовлен {wood_item}.')
                 storage -= qty
                 items_produced += 1
+                # print(f'{items_produced=}')
                 if items_produced == 3:
                     stop_production.set()
+                    storage_condition.notify_all()
                 return
+            else:
+                storage_condition.notify_all()
 
             # storage_condition.notify()
 
