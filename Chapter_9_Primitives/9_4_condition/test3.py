@@ -1,6 +1,5 @@
 import asyncio
 
-
 stone_material = 0
 metal_material = 0
 cloth_material = 0
@@ -165,4 +164,6 @@ async def main():
                          *stone_goods, *metal_goods, *cloth_goods)
 
 asyncio.run(main())
+
+
 
