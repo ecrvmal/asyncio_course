@@ -1,37 +1,5 @@
 # После внесения изменений все асинхронные операции снятия денег должны корректно обрабатываться
-# без потери данных и ошибок в расчетах остатка средств на счете.
-
-import asyncio
-
-# Инициализация банковского счета
-lock = asyncio.Lock()
-bank_account = 10000
-print(f"Исходный баланс: {bank_account}р")
-
-
-async def withdraw_money(amount):
-    global bank_account
-
-    # Проверка наличия достаточных средств на счете
-    await lock.acquire()
-    print(f"Попытка снять {amount}р. Доступный баланс: {bank_account}р")
-    if bank_account >= amount:
-        await asyncio.sleep(0.01)  # Имитация долгой операции
-        bank_account -= amount
-        print(f"Снятие {amount}р успешно. Оставшийся баланс: {bank_account}р")
-    else:
-        print(f"Снятие {amount}р не удалось. Недостаточно средств. Оставшийся баланс: {bank_account}р")
-    lock.release()
-
-
-async def main():
-    tasks = [asyncio.create_task(withdraw_money(1200)) for x in range(9)]
-    await asyncio.gather(*tasks)
-    print(f'Конечный остаток средств: {bank_account}р')
-
-
-asyncio.run(main())
-
+# без потери данных и ошибок в расчетах остатка средств на счете.:
 #
 # Исходный баланс: 10000р
 # Попытка снять 1200р. Доступный баланс: 10000р
