@@ -27,7 +27,7 @@ import asyncio
 
 async def check_book(book):
     if not book["Наличие на полке"]:
-        print(f'{book["Порядковый номер"]}: {book["Автор"]}: {book["Название"]}. ({book["Год издания"]})')
+        print(f'{book["Порядковый номер"]}: {book["Автор"]}: {book["Название"]} ({book["Год издания"]})')
 
 async def main():
     await asyncio.gather(*(check_book(book) for book in books_json))
