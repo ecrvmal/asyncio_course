@@ -21,9 +21,10 @@ async def coro2():
 async def main():
     task_coro1 = asyncio.create_task(coro1())
     task_coro2 = asyncio.create_task(coro2())
-    await asyncio.wait_for(task_coro1, timeout=7)
-    print('Запуск второго wait_for')  # Эта строчка не будет напечатана
-    await asyncio.wait_for(task_coro2, timeout=3)
+    # await asyncio.wait_for(task_coro1, timeout=7)
+    # print('Запуск второго wait_for')  # Эта строчка не будет напечатана
+    # await asyncio.wait_for(task_coro2, timeout=3)
+    await asyncio.gather(asyncio.wait_for(task_coro2, timeout=3), asyncio.wait_for(task_coro1, timeout=7))
 
 start = time.time()
 asyncio.run(main())
