@@ -5,7 +5,7 @@ import asyncio
 async def producer(queue):
     print('Производитель: Запущен')
     for i in range(10):
-        value = random()
+        value = random()*10
         await asyncio.sleep(value)
         await queue.put(value)
     await queue.put(None)
